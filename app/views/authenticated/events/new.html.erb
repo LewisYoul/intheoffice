@@ -1,0 +1,28 @@
+<%= form_for(@event) do |form| %>
+  <%= form.hidden_field(:user_id, value: current_user.id) %>
+  <%= form.hidden_field(:account_id, value: current_user.account.id) %>
+
+  <div class="mb-4 flex justify-between">
+    <div>
+      <%= form.label(:event_date, "Date", class: "block text-sm font-medium text-gray-700") %>
+      <%= form.date_field(:event_date, value: Date.today) %>
+    </div>
+    <div>
+      <%= form.label(:participants, class: "block text-sm font-medium text-gray-700") %>
+      <%= form.collection_select(:participant_ids, current_user.participants, :id, :full_name, {}, multiple: :true) %>
+    </div>
+    <div>
+      <%= form.label(:categories, class: "block text-sm font-medium text-gray-700") %>
+      <%= form.select(:categories, ['Hobby', 'Work']) %>
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <%= form.label(:title, class: "block text-sm font-medium text-gray-700") %>
+    <%= form.text_field(:title, class: "mt-1 p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md") %>
+  </div>
+
+  <div class="flex justify-end">
+    <%= form.submit("Create Event", class: "inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500") %>
+  </div>
+<% end %>
