@@ -6,7 +6,6 @@ class Event < ApplicationRecord
   accepts_nested_attributes_for :participants
 
   validates_presence_of :title
-  validates_presence_of :content
 
   attr_accessor :categories
 end
