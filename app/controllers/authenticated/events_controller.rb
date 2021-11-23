@@ -23,6 +23,7 @@ module Authenticated
     def event_params
       params.require(:event).permit(
         :title,
+        :content,
         :event_date,
         :user_id,
         :account_id,
