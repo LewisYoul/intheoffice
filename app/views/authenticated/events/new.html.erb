@@ -8,12 +8,11 @@
       <%= form.date_field(:event_date, value: Date.today) %>
     </div>
     <div>
-      <%= form.label(:participants, class: "block text-sm font-medium text-gray-700") %>
-      <%= form.collection_select(:participant_ids, current_user.participants, :id, :full_name, {}, multiple: :true) %>
-    </div>
-    <div>
       <%= form.label(:categories, class: "block text-sm font-medium text-gray-700") %>
       <%= form.select(:categories, ['Hobby', 'Work']) %>
+    </div>
+    <div>
+      <%= form.multi_select(:participant_ids, current_user.participants, [], { include_hidden: false }, { multiple: true, data: { multiselect_target: 'select' }, class: 'hidden' }) %>
     </div>
   </div>
 
