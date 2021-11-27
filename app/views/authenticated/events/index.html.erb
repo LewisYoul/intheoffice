@@ -18,16 +18,13 @@
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Role
               </th>
-              <th scope="col" class="relative px-6 py-3">
-                <span class="sr-only">Edit</span>
-              </th>
             </tr>
           </thead>
           <tbody>
             <% @events.each_with_index do |event, i| %>
-              <% num = i + 1%>
-              <% bg_class = num % 2 ? "bg-white" : "bg-gray-50" %>
-              <tr class="<%= bg_class %>">
+              <% num = i + 1 %>
+              <% bg_class = num % 2 == 0 ? "bg-gray-50" : "bg-white" %>
+              <tr class="<%= bg_class %>" data-controller="navigation" data-action="click->navigation#navigate" data-navigation-url-value="<%= event_path(event) %>">
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                   <%= event.title %>
                 </td>
@@ -39,9 +36,6 @@
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   Admin
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
                 </td>
               </tr>
             <% end %>

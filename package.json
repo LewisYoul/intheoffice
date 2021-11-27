@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@hotwired/turbo": "^7.1.0",
     "@rails/actiontext": "^6.1.4",
     "@rails/webpacker": "5.4.0",
     "stimulus": "^3.0.1",

@@ -4,6 +4,10 @@ module Authenticated
       @events = Event.includes(:participants).order(event_date: :desc)
     end
 
+    def show
+      @event = Event.find(params[:id])
+    end
+
     def new
       @event = Event.new
     end
