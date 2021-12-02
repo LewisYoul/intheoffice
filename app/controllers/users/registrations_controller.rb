@@ -1,14 +1,17 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  # before_action :configure_sign_up_params, only: [:create]
+  before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
+  def new
+    super do |user|
+      @account = user.accounts.build
+    end
+  end
 
   def create
     super do |user|
-      Account.create(user_id: user.id) if user.persisted?
-
       UserMailer.with(user: user).welcome_email.deliver_later
     end
   end
@@ -40,9 +43,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_up_params
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
-  # end
+  def configure_sign_up_params
+    devise_parameter_sanitizer.permit(:sign_up, keys: [accounts_attributes: [:name]])
+  end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params
