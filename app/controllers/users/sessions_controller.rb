@@ -10,9 +10,11 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  def create
+    super
+
+    set_current_account(current_user.accounts.first)
+  end
 
   # DELETE /resource/sign_out
   # def destroy

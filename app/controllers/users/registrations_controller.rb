@@ -4,15 +4,23 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
-  def new
-    super do |user|
-      @account = user.accounts.build
-    end
-  end
+  # def new
+  #   super do |user|
+  #     @account = user.accounts.build
+  #   end
+  # end
 
   def create
-    super do |user|
-      UserMailer.with(user: user).welcome_email.deliver_later
+    build_resource(sign_up_params)
+
+    if resource.save
+      UserMailer.with(user: resource).welcome_email.deliver_later
+      
+      set_current_account(resource.accounts.first)
+
+      redirect_to authenticated_root_path
+    else
+      render :new
     end
   end
 
