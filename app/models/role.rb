@@ -1,3 +1,6 @@
 class Role < ApplicationRecord
-  enum name: %i[admin member]
+  enum name: {
+    'Admin' => 'Admin',
+    'Member' => 'Member'
+  }
 end

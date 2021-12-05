@@ -1,7 +1,8 @@
 module Authenticated
   class UsersController < AuthenticatedController
     def index
-      @users = current_account.users
+      @user_accounts = current_account.user_accounts.includes(:user, :role)
+
       @user = User.new
     end
 
@@ -19,9 +20,8 @@ module Authenticated
     def user_params
       password = Devise.friendly_token.first(10)
 
-      params.require(:user).permit(:first_name, :last_name, :email)
+      params.require(:user).permit(:first_name, :last_name, :email, user_accounts_attributes: [:account_id, :role_id])
         .tap do |params|
-          params[:account_ids] = [current_account.id]
           params[:password] = password
         end
     end

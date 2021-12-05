@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Role.names.keys.each { |name| Role.create!(name:  name) }
+Role.names.keys.each { |name| Role.create!(name: name) }
 
 user_attrs = {
   first_name: 'Joe',
