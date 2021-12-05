@@ -15,7 +15,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     if resource.save
       UserMailer.with(user: resource).welcome_email.deliver_later
-      
+
+      sign_in(resource)
       set_current_account(resource.accounts.first)
 
       redirect_to authenticated_root_path
@@ -52,7 +53,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [accounts_attributes: [:name]])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, accounts_attributes: [:name]])
   end
 
   # If you have extra params to permit, append them to the sanitizer.

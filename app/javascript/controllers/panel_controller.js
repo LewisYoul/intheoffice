@@ -5,6 +5,9 @@ export default class extends Controller {
 
   showPanel() {
     this.panelTarget.classList.remove('hidden')
+    Array.from(document.querySelectorAll('[autofocus]')).forEach((el) => {
+      el.focus();
+    })
   }
 
   closePanel() {

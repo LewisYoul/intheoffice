@@ -10,5 +10,11 @@ class User < ApplicationRecord
 
   accepts_nested_attributes_for :accounts
 
+  validates_presence_of :first_name
+  validates_presence_of :last_name
   validates :email, uniqueness: true
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end
