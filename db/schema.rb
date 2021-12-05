@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_03_200443) do
+ActiveRecord::Schema.define(version: 2021_12_05_140955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -22,12 +22,20 @@ ActiveRecord::Schema.define(version: 2021_12_03_200443) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "roles", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "user_accounts", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "account_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "role_id"
     t.index ["account_id"], name: "index_user_accounts_on_account_id"
+    t.index ["role_id"], name: "index_user_accounts_on_role_id"
     t.index ["user_id"], name: "index_user_accounts_on_user_id"
   end
 

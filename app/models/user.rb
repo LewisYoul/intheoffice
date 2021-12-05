@@ -4,11 +4,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   
-  has_many :participants
   has_many :user_accounts
   has_many :accounts, through: :user_accounts
+  has_many :roles, through: :user_accounts
 
-  accepts_nested_attributes_for :accounts
+  accepts_nested_attributes_for :user_accounts
 
   validates_presence_of :first_name
   validates_presence_of :last_name
