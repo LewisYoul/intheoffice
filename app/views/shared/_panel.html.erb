@@ -1,5 +1,5 @@
 <%= turbo_frame_tag :panel do %>
-  <div data-panel-target="panel" class="<%= hidden ? 'hidden' : '' %> fixed inset-0 overflow-hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+  <div data-panel-target="wrapper" class="<%= hidden ? 'hidden' : '' %> fixed inset-0 overflow-hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
     <div class="absolute inset-0 overflow-hidden">
       <!-- Background overlay, show/hide based on slide-over state. -->
       <div class="absolute inset-0" aria-hidden="true">
@@ -14,7 +14,7 @@
               From: "translate-x-0"
               To: "translate-x-full"
           -->
-          <div class="w-screen max-w-md">
+          <div data-action="click@window->panel#hide" data-panel-target="panel" class="w-screen max-w-md">
             <div class="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll">
               <div class="px-4 sm:px-6">
                 <div class="flex items-start justify-between">

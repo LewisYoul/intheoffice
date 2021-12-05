@@ -1,16 +1,29 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ['button', 'panel']
+  static targets = ['button', 'panel', 'wrapper'];
+  static values = {
+    open: Boolean
+  };
 
-  showPanel() {
-    this.panelTarget.classList.remove('hidden')
+  hide(event) {
+    if (this.openValue && !this.panelTarget.contains(event.target)) {
+      this.closePanel();
+    }
+  }
+
+  showPanel(event) {
+    event.stopPropagation();
+
+    this.wrapperTarget.classList.remove('hidden')
+    this.openValue = true;
+    
     Array.from(document.querySelectorAll('[autofocus]')).forEach((el) => {
       el.focus();
     })
   }
 
   closePanel() {
-    this.panelTarget.classList.add('hidden')
+    this.wrapperTarget.classList.add('hidden')
   }
 }
