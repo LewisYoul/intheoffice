@@ -1,5 +1,8 @@
 <% if @users %>
-  <%# Also replaces the panel %>
+  <%= turbo_stream.update :panel_container do %>
+    <div></div>
+  <% end %>
+
   <%= turbo_stream.replace :users do %>
     <%= turbo_frame_tag :users, src: users_path %>
   <% end %>
@@ -9,9 +12,9 @@
   <% end %>
 <% else %>
 
-  <%= turbo_stream.replace :panel do %>
-    <%= render layout: 'shared/panel', locals: { hidden: @hidden } do %>
-      <%= render partial: 'users/invite_form' %>
+  <%= turbo_stream.update :panel_container do %>
+    <%= render layout: 'shared/panel', locals: { hidden: false } do %>
+      <% render partial: 'users/invite_form' %>
     <% end %>
   <% end %>
 

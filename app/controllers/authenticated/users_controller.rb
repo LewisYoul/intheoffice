@@ -2,8 +2,17 @@ module Authenticated
   class UsersController < AuthenticatedController
     def index
       @user_accounts = current_account.user_accounts.includes(:user, :role)
+    end
+    
+    def edit
+      @user = User.find(params[:user_id])
 
+    end
+    
+    def new
       @user = User.new
+
+      render 'new', formats: [:turbo_stream]
     end
 
     def invite

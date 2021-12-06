@@ -182,8 +182,9 @@
 
     <main class="flex-1">
       <div class="py-6">
-        <div data-controller="panel" data-panel-open-value="false" class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-          
+        <div data-controller="panel" class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+          <div id="panel_container" data-panel-target="container"></div>
+
           <%= yield %>
 
         </div>

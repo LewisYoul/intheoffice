@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   scope module: :authenticated do
     resources :account, only: :index
-    resources :users, only: :index do
+    resources :users, only: %i[index new] do
       post :invite, on: :collection
     end
   end
