@@ -1,5 +1,9 @@
 module Authenticated
   class UserAccountsController < AuthenticatedController
+    def index
+      @user_accounts = current_account.user_accounts.includes(:user, :role)
+    end
+
     def edit
       @user_account = current_account.user_accounts.find(params[:id])
 

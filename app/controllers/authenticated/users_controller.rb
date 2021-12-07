@@ -1,9 +1,5 @@
 module Authenticated
-  class UsersController < AuthenticatedController
-    def index
-      @user_accounts = current_account.user_accounts.includes(:user, :role)
-    end
-    
+  class UsersController < AuthenticatedController    
     def new
       @user = User.new
 

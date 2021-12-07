@@ -16,10 +16,10 @@ Rails.application.routes.draw do
 
   scope module: :authenticated do
     resources :account, only: :index
-    resources :users, only: %i[index new] do
+    resources :users, only: %i[new] do
       post :invite, on: :collection # change to user_accounts
     end
-    resources :user_accounts, only: %i[edit update]
+    resources :user_accounts, only: %i[index edit update]
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

@@ -5,7 +5,7 @@
 
   <%# rather than update whole page just update the changed user_account row %>
   <%= turbo_stream.replace :users do %>
-    <%= turbo_frame_tag :users, src: users_path %>
+    <%= turbo_frame_tag :users, src: user_accounts_path %>
   <% end %>
 
   <%= turbo_stream.append :notification do %>
