@@ -1,5 +1,5 @@
 <%= turbo_frame_tag :panel do %>
-  <div class="<%= hidden ? 'hidden' : '' %> fixed inset-0 overflow-hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+  <div class="fixed inset-0 overflow-hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
     <div class="absolute inset-0 overflow-hidden">
       <!-- Background overlay, show/hide based on slide-over state. -->
       <div class="absolute inset-0" aria-hidden="true">
@@ -19,7 +19,7 @@
               <div class="px-4 sm:px-6">
                 <div class="flex items-start justify-between">
                   <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">
-                    Panel title
+                    <%= title %>
                   </h2>
                   <div class="ml-3 h-7 flex items-center">
                     <button data-action="click->panel#closePanel" type="button" class="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">

@@ -15,7 +15,7 @@
 <% else %>
 
   <%= turbo_stream.update :panel_container do %>
-    <%= render layout: 'shared/panel', locals: { hidden: false } do %>
+    <%= render layout: 'shared/panel', locals: { title: 'Edit User' } do %>
       <% render partial: 'authenticated/user_accounts/edit_form' %>
     <% end %>
   <% end %>
