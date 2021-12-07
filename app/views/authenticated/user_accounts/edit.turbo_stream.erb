@@ -1,5 +1,5 @@
 <%= turbo_stream.append :panel_container do %>
   <%= render layout: 'shared/panel', locals: { hidden: false } do %>
-    <% render partial: 'users/edit_form' %>
+    <% render partial: 'authenticated/user_accounts/edit_form' %>
   <% end %>
 <% end %>

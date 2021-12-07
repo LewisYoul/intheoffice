@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     resources :users, only: %i[new] do
       post :invite, on: :collection # change to user_accounts
     end
-    resources :user_accounts, only: %i[index edit update]
+    resources :user_accounts, only: %i[index new create edit update]
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

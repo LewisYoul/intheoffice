@@ -1,22 +1,21 @@
-<% if @user_account.valid? %>
+<% if @user_account.persisted? %>
   <%= turbo_stream.update :panel_container do %>
     <div></div>
   <% end %>
 
-  <%# rather than update whole page just update the changed user_account row %>
   <%= turbo_stream.replace :users do %>
     <%= turbo_frame_tag :users, src: user_accounts_path %>
   <% end %>
 
   <%= turbo_stream.append :notification do %>
-    <%= render partial: 'shared/notification', locals: { heading: 'User updated', description: 'They will receive an email shortly' } %>
+    <%= render partial: 'shared/notification', locals: { heading: 'User invited', description: 'They will receive an email shortly' } %>
   <% end %>
 
 <% else %>
 
   <%= turbo_stream.update :panel_container do %>
     <%= render layout: 'shared/panel', locals: { hidden: false } do %>
-      <% render partial: 'authenticated/user_accounts/edit_form' %>
+      <% render partial: 'users/invite_form' %>
     <% end %>
   <% end %>
 
