@@ -4,11 +4,6 @@ module Authenticated
       @user_accounts = current_account.user_accounts.includes(:user, :role)
     end
     
-    def edit
-      @user = User.find(params[:user_id])
-
-    end
-    
     def new
       @user = User.new
 
