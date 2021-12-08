@@ -13,7 +13,7 @@ class Users::SessionsController < Devise::SessionsController
   def create
     super
 
-    set_current_account(current_user.accounts.first)
+    set_current_user_account(current_user.user_accounts.first)
   end
 
   # DELETE /resource/sign_out

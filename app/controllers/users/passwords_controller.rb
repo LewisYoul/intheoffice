@@ -1,15 +1,17 @@
 # frozen_string_literal: true
 
 class Users::PasswordsController < Devise::PasswordsController
+  layout 'devise'
+
   # GET /resource/password/new
-  # def new
-  #   super
-  # end
+  def new
+    super
+  end
 
   # POST /resource/password
-  # def create
-  #   super
-  # end
+  def create
+    super
+  end
 
   # GET /resource/password/edit?reset_password_token=abcdef
   # def edit
@@ -17,9 +19,13 @@ class Users::PasswordsController < Devise::PasswordsController
   # end
 
   # PUT /resource/password
-  # def update
-  #   super
-  # end
+  def update
+    super do |user|
+      if user.persisted? && user.valid?
+        set_current_user_account(user.user_accounts.first)
+      end
+    end
+  end
 
   # protected
 

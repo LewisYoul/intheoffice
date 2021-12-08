@@ -17,7 +17,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       UserMailer.with(user: resource).welcome_email.deliver_later
 
       sign_in(resource)
-      set_current_account(resource.accounts.first)
+      set_current_user_account(resource.user_accounts.first)
 
       redirect_to authenticated_root_path
     else
