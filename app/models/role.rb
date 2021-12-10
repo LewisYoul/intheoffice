@@ -4,4 +4,6 @@ class Role < ApplicationRecord
     'Admin' => 'Admin',
     'Member' => 'Member'
   }
+
+  validates_uniqueness_of :name
 end

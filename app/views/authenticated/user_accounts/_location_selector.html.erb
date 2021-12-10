@@ -1,0 +1,40 @@
+<div id="<%= dom_id(current_user_account) %>" data-controller="dropdown" class="relative text-gray-500 flex justify-center">
+  <div class="flex cursor-pointer rounded-full bg-gray-200 border border-gray-500 divide-x divide-gray-500" data-action="click->dropdown#toggle click@window->dropdown#hide">
+    <% user_account_location = current_user_account.user_account_locations.find_by(location_date: day) %>
+
+    <% if user_account_location %>
+      <div class="p1">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+      </div>
+    <% else %>
+      <div class="p-1">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />
+        </svg>
+      </div>
+    <% end %>
+    <div class="flex items-center px-1">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </div>
+  </div>
+  <div data-dropdown-target="dropdown" class="hidden text-white mt-8 origin-top absolute mt-2 rounded-md shadow-lg py-1 px-3 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+    <% method = user_account_location ? :put : :post %>
+
+    <%= button_to user_account_user_account_locations_path(current_user_account), method: method, class: "cursor-pointer rounded-full bg-green-500 p-1 my-3", params: { 'user_account_location[location_id]' => Location.find_by_name('office').id, 'user_account_location[location_date]' => day } do %>
+      <%= location_svg('office') %>
+    <% end %>
+    <%= button_to user_account_user_account_locations_path(current_user_account), method: method, class: "cursor-pointer rounded-full bg-pink-500 p-1 my-3", params: { 'user_account_location[location_id]' => Location.find_by_name('home').id, 'user_account_location[location_date]' => day } do %>
+      <%= location_svg('home') %>
+    <% end %>
+    <%= button_to user_account_user_account_locations_path(current_user_account), method: method, class: "cursor-pointer rounded-full bg-blue-500 p-1 my-3", params: { 'user_account_location[location_id]' => Location.find_by_name('onlocation').id, 'user_account_location[location_date]' => day } do %>
+      <%= location_svg('onlocation') %>
+    <% end %>
+    <div class="cursor-pointer rounded-full bg-gray-500 p-1 my-3">
+      <%= location_svg('unknown') %>
+    </div>
+  </div>
+</div>

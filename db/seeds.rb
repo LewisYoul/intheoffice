@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Role.names.keys.each { |name| Role.create!(name: name) }
+Location.names.keys.each { |name| Location.create!(name: name) }
 
 user_attrs = {
   first_name: 'Joe',
@@ -16,7 +17,7 @@ user_attrs = {
   password_confirmation: 'testpassword1!',
   user_accounts_attributes: [
     {
-      role_id: Role.find_by_name('admin').id,
+      role_id: Role.find_by_name('Admin').id,
       account_attributes: {
         name: 'Test Account 1'
       }
