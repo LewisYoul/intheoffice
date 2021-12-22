@@ -1,5 +1,7 @@
 module Authenticated
   class UserAccountLocationsController < AuthenticatedController
+    before_action :set_selectable_locations
+
     def create
       @user_account_location = current_user_account.user_account_locations.new(user_account_location_params)
 
@@ -23,6 +25,10 @@ module Authenticated
     end
 
     private
+
+    def set_selectable_locations
+      @home, @office, @onlocation = Location.where(name: %w[office home onlocation]).order(name: :asc)
+    end
 
     def user_account_location_params
       params.require(:user_account_location).permit(:location_id, :location_date)
