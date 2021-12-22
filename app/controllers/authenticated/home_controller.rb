@@ -1,16 +1,28 @@
 module Authenticated
   class HomeController < AuthenticatedController
     def index
-      @today = Date.today
-      @current_week = @today.beginning_of_week..@today.end_of_week
-
+      @start_date = start_date
+      @end_date = end_date
       @home, @office, @onlocation = Location.where(name: %w[office home onlocation]).order(name: :asc)
+      @week = date_range
+      @user_accounts = current_account.user_accounts.includes(:user, user_account_locations: :location)
+      @next_week_start = start_date + 1.week
+      @previous_week_start = start_date - 1.week
+      @header = [start_date, end_date].map { |day| day.strftime("%B %Y") }.uniq.join(' - ')
+    end
 
-      @user_accounts = current_account.user_accounts
-        .includes(:user)
-        .left_joins(:user_account_locations)
-        .where("user_account_locations.location_date BETWEEN ? AND ? OR user_account_locations.location_date IS NULL", @current_week.first, @current_week.last)
-        .distinct
+    private
+
+    def start_date
+      (Date.parse(params[:start_date] || Date.today.to_s)).beginning_of_week
+    end
+
+    def end_date
+      start_date.end_of_week
+    end
+
+    def date_range
+      start_date..end_date
     end
   end
 end
