@@ -1,7 +1,7 @@
 <div class="flex flex-col">
-  <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+  <div class="sm:-mx-6 lg:-mx-8">
     <div class="py-4 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-      <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+      <div class="shadow border-b border-gray-200 sm:rounded-lg">
         <table class="min-w-full divide-y divide-gray-200 text-center">
           <thead class="bg-gray-50">
             <tr>
@@ -27,11 +27,12 @@
                     <% if is_current %>
                       <%= render partial: 'authenticated/user_accounts/location_selector', locals: { day: day } %>
                     <% else %>
+                      <% user_account_location = user_account.user_account_locations.find { |user_account_location| user_account_location.location_date == day } %>
+                      <% color = user_account_location ? user_account_location.location.color : 'gray' %>
+
                       <div class="text-white flex justify-center">
-                        <div class="bg-gray-500 rounded-full border border-gray-500 p-1">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />
-                          </svg>
+                        <div class="<%= "bg-#{color}-500 rounded-full border border-white p-1" %>">
+                        <%= location_svg(user_account_location&.location&.name || 'unknown') %>
                         </div>
                       </div>
                     <% end %>
