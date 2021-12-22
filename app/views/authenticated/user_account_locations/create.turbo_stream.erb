@@ -1,0 +1,3 @@
+<%= turbo_stream.update(dom_id(current_user_account, "location-#{@user_account_location.location_date}")) do %>
+  <%= render partial: 'authenticated/user_accounts/location_selector', locals: { day: @user_account_location.location_date } %>
+<% end %>

@@ -1,11 +1,25 @@
 module Authenticated
   class UserAccountLocationsController < AuthenticatedController
     def create
-      @user_account = current_account.user_accounts.find(params[:user_account_id])
-
-      @user_account_location = @user_account.user_account_locations.new(user_account_location_params)
+      @user_account_location = current_user_account.user_account_locations.new(user_account_location_params)
 
       @user_account_location.save
+    end
+
+    def update
+      @user_account_location = current_user_account.user_account_locations.find(params[:id])
+
+      @user_account_location.update(user_account_location_params)
+
+      render :create
+    end
+
+    def destroy
+      @user_account_location = current_user_account.user_account_locations.find(params[:id])
+
+      @user_account_location.destroy
+
+      render :create
     end
 
     private

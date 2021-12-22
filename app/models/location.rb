@@ -8,4 +8,14 @@ class Location < ApplicationRecord
   }
 
   validates_uniqueness_of :name
+
+  COLORS = {
+    'office' => 'green',
+    'home' => 'pink',
+    'onlocation' => 'blue'
+  }.freeze
+
+  def color
+    COLORS[name]
+  end
 end
