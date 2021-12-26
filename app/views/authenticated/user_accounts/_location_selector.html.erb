@@ -1,45 +1,48 @@
-<div id="<%= dom_id(current_user_account, "location-#{day}") %>" data-controller="dropdown" class="relative text-white flex justify-center">
-  <% user_account_location = current_user_account.user_account_locations.find { |user_account_location| user_account_location.location_date == day } %>
-  <% color = user_account_location ? "bg-#{user_account_location.location.color}-500" : 'bg-gray-500' %>
+<div id="<%= dom_id(current_user_account, "location-#{day}") %>" class="text-white flex justify-center">
+  <div class="relative">
+    <% user_account_location = current_user_account.user_account_locations.find { |user_account_location| user_account_location.location_date == day } %>
+    <% color = user_account_location ? "bg-#{user_account_location.location.color}-500" : 'bg-gray-500' %>
 
-  <div class="<%= "flex cursor-pointer rounded-full #{color} border border-white divide-x divide-white" %>" data-action="click->dropdown#toggle click@window->dropdown#hide">
-
-    <% if user_account_location %>
-      <div class="p-1">
-        <%= location_svg(user_account_location.location.name) %>
-      </div>
-    <% else %>
-      <div class="p-1">
-        <%= location_svg('unknown') %>
-      </div>
-    <% end %>
-    <div class="flex items-center px-1">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-      </svg>
-    </div>
-  </div>
-  <div data-dropdown-target="dropdown" class="hidden text-white mt-8 origin-top absolute mt-2 rounded-md shadow-lg py-1 px-3 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
-    <% method = user_account_location ? :put : :post %>
-    <% path = user_account_location ? user_account_user_account_location_path(user_account_location, user_account_id: current_user_account.id) : user_account_user_account_locations_path(current_user_account) %>
-
-    <%= button_to path, method: method, class: "cursor-pointer rounded-full bg-green-500 p-1 my-3", params: { 'user_account_location[location_id]' => @office.id, 'user_account_location[location_date]' => day } do %>
-      <%= location_svg('office') %>
-    <% end %>
-    <%= button_to path, method: method, class: "cursor-pointer rounded-full bg-pink-500 p-1 my-3", params: { 'user_account_location[location_id]' => @home.id, 'user_account_location[location_date]' => day } do %>
-      <%= location_svg('home') %>
-    <% end %>
-    <%= button_to path, method: method, class: "cursor-pointer rounded-full bg-blue-500 p-1 my-3", params: { 'user_account_location[location_id]' => @onlocation.id, 'user_account_location[location_date]' => day } do %>
-      <%= location_svg('onlocation') %>
-    <% end %>
-      <% if user_account_location %>
-        <%= button_to path, method: :delete, class: "cursor-pointer rounded-full bg-gray-500 p-1 my-3" do %>
-          <%= location_svg('unknown') %>
+    <div class="<%= "flex cursor-pointer rounded-full #{color} border border-white divide-x divide-white" %>">
+      <div data-controller="dropdown">
+        <% if user_account_location %>
+          <div class="p-1" data-action="click->dropdown#toggle click@window->dropdown#hide">
+            <%= location_svg(user_account_location.location.name) %>
+          </div>
+        <% else %>
+          <div class="p-1" data-action="click->dropdown#toggle click@window->dropdown#hide">
+            <%= location_svg('unknown') %>
+          </div>
         <% end %>
-      <% else %>
-        <div class="cursor-pointer rounded-full bg-gray-500 p-1 my-3">
-          <%= location_svg('unknown') %>
+        <div data-dropdown-target="dropdown" class="hidden text-white mt-2 origin-top absolute mt-2 rounded-md shadow-lg py-1 px-3 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+          <% method = user_account_location ? :put : :post %>
+          <% path = user_account_location ? user_account_user_account_location_path(user_account_location, user_account_id: current_user_account.id) : user_account_user_account_locations_path(current_user_account) %>
+
+          <%= button_to path, method: method, class: "cursor-pointer rounded-full bg-green-500 p-1 my-3", params: { 'user_account_location[location_id]' => @office.id, 'user_account_location[location_date]' => day } do %>
+            <%= location_svg('office') %>
+          <% end %>
+          <%= button_to path, method: method, class: "cursor-pointer rounded-full bg-pink-500 p-1 my-3", params: { 'user_account_location[location_id]' => @home.id, 'user_account_location[location_date]' => day } do %>
+            <%= location_svg('home') %>
+          <% end %>
+          <%= button_to path, method: method, class: "cursor-pointer rounded-full bg-blue-500 p-1 my-3", params: { 'user_account_location[location_id]' => @onlocation.id, 'user_account_location[location_date]' => day } do %>
+            <%= location_svg('onlocation') %>
+          <% end %>
+          <% if user_account_location %>
+            <%= button_to path, method: :delete, class: "cursor-pointer rounded-full bg-gray-500 p-1 my-3" do %>
+              <%= location_svg('unknown') %>
+            <% end %>
+          <% else %>
+            <div class="cursor-pointer rounded-full bg-gray-500 p-1 my-3">
+              <%= location_svg('unknown') %>
+            </div>
+          <% end %>
         </div>
-      <% end %>
+      </div>
+      <div class="flex items-center px-1">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </div>
+    </div>
   </div>
 </div>

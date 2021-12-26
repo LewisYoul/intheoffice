@@ -6,12 +6,16 @@ module Authenticated
       @user_account_location = current_user_account.user_account_locations.new(user_account_location_params)
 
       @user_account_location.save
+      @notification_heading = 'Location Updated!'
+      @notification_description = "You'll be #{@user_account_location.location.name} on #{@user_account_location.location_date.strftime('%A %-d %B')}"
     end
 
     def update
       @user_account_location = current_user_account.user_account_locations.find(params[:id])
 
       @user_account_location.update(user_account_location_params)
+      @notification_heading = 'Location Updated!'
+      @notification_description = "You'll be #{@user_account_location.location.name} on #{@user_account_location.location_date.strftime('%A %-d %B')}"
 
       render :create
     end
@@ -20,6 +24,8 @@ module Authenticated
       @user_account_location = current_user_account.user_account_locations.find(params[:id])
 
       @user_account_location.destroy
+      @notification_heading = 'Location Updated!'
+      @notification_description = "You've unset your location for #{@user_account_location.location_date.strftime('%A %-d %B')}"
 
       render :create
     end

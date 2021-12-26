@@ -1,3 +1,7 @@
 <%= turbo_stream.update(dom_id(current_user_account, "location-#{@user_account_location.location_date}")) do %>
   <%= render partial: 'authenticated/user_accounts/location_selector', locals: { day: @user_account_location.location_date } %>
 <% end %>
+
+<%= turbo_stream.append :notification do %>
+  <%= render partial: 'shared/notification', locals: { heading: @notification_heading, description: @notification_description } %>
+<% end %>
