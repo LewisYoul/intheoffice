@@ -47,8 +47,13 @@
                       <% color = user_account_location ? user_account_location.location.color : 'gray' %>
 
                       <div class="text-white flex justify-center">
-                        <div class="<%= "bg-#{color}-500 rounded-full border border-white p-1" %>">
-                        <%= location_svg(user_account_location&.location&.name || 'unknown') %>
+                        <div class="relative <%= "bg-#{color}-500 rounded-full border border-white p-1" %>">
+                          <% if user_account_location&.note&.presence %>
+                            <div class="p-0.5 absolute -top-2 -right-1.5 rounded-full bg-yellow-500 border border-yellow-600">
+                              <%= svg('document', classes: 'h-3 w-3') %>
+                            </div>
+                          <% end %>
+                          <%= svg(user_account_location&.location&.name || 'unknown') %>
                         </div>
                       </div>
                     <% end %>
