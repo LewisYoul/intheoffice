@@ -122,4 +122,25 @@ module ApplicationHelper
 
     raw(svg)
   end
+
+  def note_indicator
+    raw(
+      <<-HTML
+        <div class="rounded-full bg-yellow-500 border border-yellow-600">
+          #{svg('document', classes: 'h-3 w-3')}
+        </div>
+      HTML
+    )
+  end
+
+  def tooltip(text, classes:, &block)
+    raw(
+      <<-HTML
+        <div class='#{classes}' data-controller="tooltip" data-action="mouseover->tooltip#toggle mouseout->tooltip#toggle" class="relative">
+          <span data-tooltip-target="tooltip" class="hidden px-1 py-0.5 text-xs -top-3 transform -translate-x-1/2 -translate-y-1/2 rounded absolute bg-gray-500">#{text}</span>
+          #{capture(&block)}
+        </div>
+      HTML
+    )
+  end
 end

@@ -48,10 +48,10 @@
 
                       <div class="text-white flex justify-center">
                         <div class="relative <%= "bg-#{color}-500 rounded-full border border-white p-1" %>">
-                          <% if user_account_location&.note&.presence %>
-                            <div class="p-0.5 absolute -top-2 -right-1.5 rounded-full bg-yellow-500 border border-yellow-600">
-                              <%= svg('document', classes: 'h-3 w-3') %>
-                            </div>
+                          <% if user_account_location&.note %>
+                            <%= tooltip(user_account_location.note, classes: "p-0.5 absolute -top-2 -right-1.5") do %>
+                              <%= note_indicator %>
+                            <% end %>
                           <% end %>
                           <%= svg(user_account_location&.location&.name || 'unknown') %>
                         </div>
