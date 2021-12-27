@@ -1,0 +1,5 @@
+<%= turbo_frame_tag :panel_container do %>
+  <%= render layout: 'shared/panel', locals: { title: 'Set Location' } do %>
+    <% render partial: 'form' %>
+  <% end %>
+<% end %>

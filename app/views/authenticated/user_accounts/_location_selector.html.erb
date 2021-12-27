@@ -1,5 +1,5 @@
 <div id="<%= dom_id(current_user_account, "location-#{day}") %>" class="text-white flex justify-center">
-  <div class="relative">
+  <div>
     <% user_account_location = current_user_account.user_account_locations.find { |user_account_location| user_account_location.location_date == day } %>
     <% color = user_account_location ? "bg-#{user_account_location.location.color}-500" : 'bg-gray-500' %>
 
@@ -38,11 +38,12 @@
           <% end %>
         </div>
       </div>
-      <div class="flex items-center px-1">
+
+      <%= link_to new_user_account_user_account_location_path(user_account_id: current_user_account.id), class: "flex items-center px-1", data: { turbo_frame: :panel_container } do %>
         <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
         </svg>
-      </div>
+      <% end %>
     </div>
   </div>
 </div>

@@ -2,6 +2,12 @@ module Authenticated
   class UserAccountLocationsController < AuthenticatedController
     before_action :set_selectable_locations
 
+    def new
+      @user_account_location = current_user_account.user_account_locations.new
+      
+      render layout: false
+    end
+
     def create
       @user_account_location = current_user_account.user_account_locations.new(user_account_location_params)
 
