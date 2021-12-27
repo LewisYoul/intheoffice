@@ -1,8 +1,27 @@
-<%= form_for([current_user_account, @user_account_location]) do |f| %>
+<%= form_for([current_user_account, @user_account_location], method: method) do |f| %>
+  <%= f.hidden_field :location_date, value: @user_account_location.location_date %>
+
   <div>
     <%= f.label :location_id, 'Location', class: "block text-sm font-medium text-gray-700" %>
     <div class="mt-1">
       <%= f.select :location_id, options_from_collection_for_select(Location.all, :id, :name), {}, class: "mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" %>
     </div>
+  </div>
+
+  <div class="mt-4">
+    <%= f.label :note, class: "block text-sm font-medium text-gray-700" %>
+    <div class="mt-1">
+      <%= f.text_field :note, autofocus: true, class: "mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" %>
+    </div>
+  </div>
+
+  <div class="mt-3 flex justify-between">
+    <div>
+      <% if @user_account_location.persisted? %>
+        <%= button_to 'Unset', user_account_user_account_location_path(@user_account_location, user_account_id: current_user_account.id), method: :delete, class: "cursor-pointer py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500" %>
+      <% end %>
+    </div>
+
+    <%= f.submit "Save", class: "cursor-pointer py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
   </div>
 <% end %>

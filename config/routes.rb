@@ -21,7 +21,7 @@ Rails.application.routes.draw do
       post :invite, on: :collection # change to user_accounts
     end
     resources :user_accounts, only: %i[index new create edit update] do
-      resources :user_account_locations, only: %i[new create update destroy]
+      resources :user_account_locations, only: %i[new create edit update destroy]
     end
   end
 

@@ -39,7 +39,9 @@
         </div>
       </div>
 
-      <%= link_to new_user_account_user_account_location_path(user_account_id: current_user_account.id), class: "flex items-center px-1", data: { turbo_frame: :panel_container } do %>
+      <% url = user_account_location ? edit_user_account_user_account_location_path(user_account_location, user_account_id: current_user_account.id) : new_user_account_user_account_location_path(user_account_id: current_user_account.id, location_date: day)%>
+
+      <%= link_to url, class: "flex items-center px-1", data: { turbo_frame: :panel_container } do %>
         <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
         </svg>

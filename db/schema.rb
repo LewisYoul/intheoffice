@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_10_085436) do
+ActiveRecord::Schema.define(version: 2021_12_27_144310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2021_12_10_085436) do
     t.date "location_date", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "note"
     t.index ["location_id"], name: "index_user_account_locations_on_location_id"
     t.index ["user_account_id"], name: "index_user_account_locations_on_user_account_id"
   end

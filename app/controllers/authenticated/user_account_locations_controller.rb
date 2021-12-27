@@ -3,8 +3,18 @@ module Authenticated
     before_action :set_selectable_locations
 
     def new
-      @user_account_location = current_user_account.user_account_locations.new
-      
+      @user_account_location = current_user_account.user_account_locations.new(location_date: params[:location_date])
+      @panel_header = @user_account_location.location_date.strftime("%A #{@user_account_location.location_date.day.ordinalize} %B")
+      @method = :post
+
+      render layout: false
+    end
+
+    def edit
+      @user_account_location = current_user_account.user_account_locations.find(params[:id])
+      @panel_header = @user_account_location.location_date.strftime("%A #{@user_account_location.location_date.day.ordinalize} %B")
+      @method = :put
+
       render layout: false
     end
 
@@ -43,7 +53,7 @@ module Authenticated
     end
 
     def user_account_location_params
-      params.require(:user_account_location).permit(:location_id, :location_date)
+      params.require(:user_account_location).permit(:location_id, :location_date, :note)
     end
   end
 end
