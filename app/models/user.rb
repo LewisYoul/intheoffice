@@ -14,7 +14,11 @@ class User < ApplicationRecord
   validates_presence_of :last_name
   validates :email, uniqueness: true
 
-  def full_name
-    "#{first_name} #{last_name}"
+  before_save :populate_full_name
+
+  private
+
+  def populate_full_name
+    self.full_name = "#{first_name} #{last_name}"
   end
 end

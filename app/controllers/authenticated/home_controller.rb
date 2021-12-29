@@ -5,10 +5,39 @@ module Authenticated
       @end_date = end_date
       @home, @office, @onlocation = Location.where(name: %w[office home onlocation]).order(name: :asc)
       @week = date_range
-      @user_accounts = current_account.user_accounts.includes(:user, user_account_locations: :location)
       @next_week_start = start_date + 1.week
       @previous_week_start = start_date - 1.week
-      @header = [start_date, end_date].map { |day| day.strftime("%B %Y") }.uniq.join(' - ')
+      @user_accounts = current_account.user_accounts.joins(:user).includes(:user, user_account_locations: :location)
+
+      if params[:search]
+        @user_accounts = @user_accounts.where("users.full_name ILIKE ?", "%#{params[:search]}%")
+      end
+
+      respond_to do |format|
+        format.html do
+          @header = [start_date, end_date].map { |day| day.strftime("%B %Y") }.uniq.join(' - ')
+        end
+      end
+    end
+    
+    def search
+      @start_date = start_date
+      @end_date = end_date
+      @home, @office, @onlocation = Location.where(name: %w[office home onlocation]).order(name: :asc)
+      @week = date_range
+      @next_week_start = start_date + 1.week
+      @previous_week_start = start_date - 1.week
+      @user_accounts = current_account.user_accounts.joins(:user).includes(:user, user_account_locations: :location)
+
+      if params[:search]
+        @user_accounts = @user_accounts.where("users.full_name ILIKE ?", "%#{params[:search]}%")
+      end
+
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace('user_accounts_table', partial: 'authenticated/user_accounts/table')
+        end
+      end
     end
 
     private

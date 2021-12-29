@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   end
 
   scope module: :authenticated do
+    resources :home do
+      post :search, on: :collection
+    end
     resources :account, only: :index
     resources :users, only: %i[new] do
       post :invite, on: :collection # change to user_accounts
