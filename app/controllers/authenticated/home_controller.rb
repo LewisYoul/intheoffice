@@ -1,8 +1,8 @@
 module Authenticated
   class HomeController < AuthenticatedController
+    before_action :start_date, :end_date
+
     def index
-      @start_date = start_date
-      @end_date = end_date
       @home, @office, @onlocation = Location.where(name: %w[office home onlocation]).order(name: :asc)
       @week = date_range
       @next_week_start = start_date + 1.week
@@ -21,15 +21,13 @@ module Authenticated
     end
     
     def search
-      @start_date = start_date
-      @end_date = end_date
       @home, @office, @onlocation = Location.where(name: %w[office home onlocation]).order(name: :asc)
       @week = date_range
       @next_week_start = start_date + 1.week
       @previous_week_start = start_date - 1.week
       @user_accounts = current_account.user_accounts.joins(:user).includes(:user, user_account_locations: :location)
 
-      if params[:search]
+      if params[:search].presence
         @user_accounts = @user_accounts.where("users.full_name ILIKE ?", "%#{params[:search]}%")
       end
 
@@ -43,11 +41,11 @@ module Authenticated
     private
 
     def start_date
-      (Date.parse(params[:start_date] || Date.today.to_s)).beginning_of_week
+      @start_date ||= (Date.parse(params[:start_date] || Date.today.to_s)).beginning_of_week
     end
 
     def end_date
-      start_date.end_of_week
+      @end_date ||= start_date.end_of_week
     end
 
     def date_range
