@@ -32,9 +32,7 @@ module Authenticated
       end
 
       respond_to do |format|
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.replace('user_accounts_table', partial: 'authenticated/user_accounts/table')
-        end
+        format.turbo_stream
       end
     end
 
