@@ -53,7 +53,7 @@ module Authenticated
     end
 
     def user_account_location_params
-      params.require(:user_account_location).permit(:location_id, :location_date, :note)
+      params.require(:user_account_location).permit(:location_id, :location_date, :note).tap { |p| p[:note] = p[:note].presence }
     end
   end
 end
