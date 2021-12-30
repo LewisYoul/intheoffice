@@ -25,7 +25,7 @@ export default class extends Controller {
 
     const baseUrl = window.location.origin + window.location.pathname
     const queryString = existingParams.toString()
-    const searchUrl = `${baseUrl}?${queryString}`
+    const searchUrl = queryString.length > 0 ? `${baseUrl}?${queryString}` : baseUrl
 
     history.pushState({}, null, searchUrl);
   }

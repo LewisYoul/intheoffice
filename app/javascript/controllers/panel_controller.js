@@ -14,6 +14,15 @@ export default class extends Controller {
   }
 
   closePanel() {
-    this.containerTarget.innerHTML = '';
+    this.panelTarget.classList.remove('animate-cart-in')
+    this.panelTarget.classList.add('animate-cart-out')
+
+    const animationEndEvent = () => {
+      this.containerTarget.innerHTML = '';
+      this.containerTarget.removeEventListener("animationend", animationEndEvent)
+    }
+
+    this.containerTarget.addEventListener("animationend", animationEndEvent)
+
   }
 }

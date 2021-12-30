@@ -1,4 +1,4 @@
-<%= turbo_frame_tag :panel_container do %>
+<%= turbo_stream.append :panel_container do %>
   <%= render layout: 'shared/panel', locals: { title: @panel_header } do %>
     <% render partial: 'form', locals: { method: @method } %>
   <% end %>

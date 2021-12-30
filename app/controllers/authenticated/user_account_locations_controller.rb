@@ -7,7 +7,7 @@ module Authenticated
       @panel_header = @user_account_location.location_date.strftime("%A #{@user_account_location.location_date.day.ordinalize} %B")
       @method = :post
 
-      render layout: false
+      render 'new', formats: [:turbo_stream]
     end
 
     def edit
@@ -15,7 +15,7 @@ module Authenticated
       @panel_header = @user_account_location.location_date.strftime("%A #{@user_account_location.location_date.day.ordinalize} %B")
       @method = :put
 
-      render layout: false
+      render 'edit', formats: [:turbo_stream]
     end
 
     def create
