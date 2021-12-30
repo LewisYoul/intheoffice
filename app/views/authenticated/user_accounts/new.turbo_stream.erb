@@ -1,4 +1,4 @@
-<%= turbo_stream.append :panel_container do %>
+<%= turbo_stream.replace :panel do %>
   <%= render layout: 'shared/panel', locals: { title: 'Invite User' } do %>
     <% render partial: 'users/invite_form' %>
   <% end %>

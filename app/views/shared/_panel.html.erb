@@ -1,4 +1,4 @@
-<%= turbo_frame_tag :panel, data: { action: "click@window->panel#hide", panel_target: "panel", stream_enter_class: "animate-cart-in", stream_exit_class: "animate-cart-out" }, class: "fixed h-screen bg-white top-0 right-0 overflow-hidden shadow-xl" do %>
+<div id="panel" data-stream-enter-class="animate-cart-in" data-stream-exit-class="animate-cart-out" data-action="click@window->panel#hide" data-panel-target="panel" class="fixed h-screen bg-white top-0 right-0 overflow-hidden shadow-xl">
   <div aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
     <div class="w-screen max-w-md">
       <div class="z-50 h-full flex flex-col py-6 bg-white overflow-y-scroll">
@@ -26,4 +26,4 @@
       </div>
     </div>
   </div>
-<% end %>
+</div>

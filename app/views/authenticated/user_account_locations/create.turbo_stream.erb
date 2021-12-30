@@ -6,6 +6,6 @@
   <%= render partial: 'shared/notification', locals: { heading: @notification_heading, description: @notification_description } %>
 <% end %>
 
-<%= turbo_stream.update :panel_container do %>
-  <div></div>
+<%= turbo_stream.replace :panel do %>
+  <div id="panel"></div>
 <% end %>

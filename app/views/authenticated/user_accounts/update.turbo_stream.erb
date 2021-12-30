@@ -1,6 +1,6 @@
 <% if @user_account.valid? %>
-  <%= turbo_stream.update :panel_container do %>
-    <div></div>
+  <%= turbo_stream.replace :panel do %>
+    <div id="panel"></div>
   <% end %>
 
   <%# rather than update whole page just update the changed user_account row %>
@@ -14,7 +14,7 @@
 
 <% else %>
 
-  <%= turbo_stream.update :panel_container do %>
+  <%= turbo_stream.replace :panel do %>
     <%= render layout: 'shared/panel', locals: { title: 'Edit User' } do %>
       <% render partial: 'authenticated/user_accounts/edit_form' %>
     <% end %>
