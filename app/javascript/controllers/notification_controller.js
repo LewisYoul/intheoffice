@@ -1,9 +1,10 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ['container'];
+  static targets = ['container', 'notification'];
 
   connect() {
+    this.notificationTarget.classList.add('animate-notification-in')
     setTimeout(() => this.closeNotification(this.element), 5000);
   }
 

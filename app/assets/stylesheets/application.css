@@ -14,12 +14,19 @@
  *= require_self
  */
 
+ .animate-notification-in {
+   animation: fade-in 0.25s ease-out,
+              slide-in-top 0.25s ease-out;
+ }
+
  .animate-cart-in {
-  animation: slide-in 0.25s ease-out;
+  animation: fade-in 0.25s ease-out,
+             slide-in 0.25s ease-out;
 }
 
 .animate-cart-out {
-  animation: slide-out 0.25s ease-out;
+  animation: fade-out 0.25s ease-out,
+             slide-out 0.25s ease-out;
 }
 
 @keyframes fade-in {
@@ -35,6 +42,11 @@
 @keyframes slide-in {
   from { transform: translateX(28rem); }
   to { transform: translateX(0); }
+}
+
+@keyframes slide-in-top {
+  from { transform: translateY(-6rem); }
+  to { transform: translateY(0); }
 }
 
 @keyframes slide-out {
