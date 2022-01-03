@@ -1,5 +1,5 @@
 <% if @user_account.persisted? %>
-  <%= turbo_stream.update :panel do %>
+  <%= turbo_stream.replace :panel do %>
     <div id="panel"></div>
   <% end %>
 
@@ -13,10 +13,8 @@
 
 <% else %>
 
-  <%= turbo_stream.update :panel do %>
-    <%= render layout: 'shared/panel', locals: { title: 'Invite User' } do %>
-      <% render partial: 'users/invite_form' %>
-    <% end %>
+  <%= turbo_stream.replace :user_account_invite_form do %>
+    <%= render partial: 'users/invite_form' %>
   <% end %>
 
 <% end %>
