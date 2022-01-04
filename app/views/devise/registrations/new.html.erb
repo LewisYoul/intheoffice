@@ -47,17 +47,21 @@
             </div>
           </div>
         </div>
+        <% user_account = resource.user_accounts.build %>
+        <%= f.fields_for :user_accounts, user_account do |user_accounts_fields| %>
+          <%= user_accounts_fields.hidden_field :role_id, value: Role.find_by_name('Admin').id %>
 
-        <%= f.fields_for :accounts, resource.accounts.build do |account_fields| %>
-          <div>
-            <%= account_fields.label :name, 'Account Name', class: "block text-sm font-medium text-gray-700" %>
-            <div class="mt-1">
-              <%= account_fields.text_field :name, autocomplete: "organisation name", class: "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
-              <% if resource.errors["accounts.name"]&.any? %>
-                <p class="text-red-600 text-xs mt-1"><%= "Account Name #{resource.errors["accounts.name"].join(', ')}" %></p>
-              <% end %>
+          <%= user_accounts_fields.fields_for :account, user_account.build_account do |account_fields| %>
+            <div>
+              <%= account_fields.label :name, 'Account Name', class: "block text-sm font-medium text-gray-700" %>
+              <div class="mt-1">
+                <%= account_fields.text_field :name, autocomplete: "organisation name", class: "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+                <% if resource.errors["accounts.name"]&.any? %>
+                  <p class="text-red-600 text-xs mt-1"><%= "Account Name #{resource.errors["accounts.name"].join(', ')}" %></p>
+                <% end %>
+              </div>
             </div>
-          </div>
+          <% end %>
         <% end %>
 
         <div>

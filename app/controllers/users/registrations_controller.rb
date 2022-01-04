@@ -13,6 +13,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     build_resource(sign_up_params)
 
+    workplace = Workplace.new(name: 'Workplace 1')
+    user_account = resource.user_accounts.build(user_account_params.merge(workplace: workplace))
+    account = user_account.build_account(account_params)
+    workplace.account = account
+
     if resource.save
       UserMailer.with(user: resource).welcome_email.deliver_later
 
@@ -52,8 +57,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.
+
+  def user_account_params
+    params[:user][:user_accounts_attributes]['0'].permit(:role_id)
+  end
+
+  def account_params
+    params[:user][:user_accounts_attributes]['0'][:account_attributes].permit(:name)
+  end
+
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, accounts_attributes: [:name]])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
