@@ -2,6 +2,7 @@ class UserAccount < ApplicationRecord
   belongs_to :user, optional: false
   belongs_to :account, optional: false
   belongs_to :role, optional: false
+  belongs_to :workplace, optional: false
   has_many :user_account_locations
 
   accepts_nested_attributes_for :role

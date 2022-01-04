@@ -9,6 +9,9 @@
 Role.names.keys.each { |name| Role.create!(name: name) }
 Location.names.keys.each { |name| Location.create!(name: name) }
 
+account = Account.create!(name: 'Test Account 1')
+workplace = Workplace.create!(name: 'Workplace 1', account: account)
+
 user_attrs = {
   first_name: 'Joe',
   last_name: 'Bloggs',
@@ -18,11 +21,10 @@ user_attrs = {
   user_accounts_attributes: [
     {
       role_id: Role.find_by_name('Admin').id,
-      account_attributes: {
-        name: 'Test Account 1'
-      }
+      account_id: account.id,
+      workplace_id: workplace.id
     }
   ]
 }
 
-User.create(user_attrs)
+User.create!(user_attrs)

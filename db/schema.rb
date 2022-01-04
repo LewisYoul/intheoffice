@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_29_123332) do
+ActiveRecord::Schema.define(version: 2022_01_04_175043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -51,9 +51,11 @@ ActiveRecord::Schema.define(version: 2021_12_29_123332) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "role_id"
+    t.bigint "workplace_id"
     t.index ["account_id"], name: "index_user_accounts_on_account_id"
     t.index ["role_id"], name: "index_user_accounts_on_role_id"
     t.index ["user_id"], name: "index_user_accounts_on_user_id"
+    t.index ["workplace_id"], name: "index_user_accounts_on_workplace_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -71,8 +73,17 @@ ActiveRecord::Schema.define(version: 2021_12_29_123332) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "workplaces", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "account_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_workplaces_on_account_id"
+  end
+
   add_foreign_key "user_account_locations", "locations"
   add_foreign_key "user_account_locations", "user_accounts"
   add_foreign_key "user_accounts", "accounts"
   add_foreign_key "user_accounts", "users"
+  add_foreign_key "workplaces", "accounts"
 end
