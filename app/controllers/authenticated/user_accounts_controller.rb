@@ -6,6 +6,8 @@ module Authenticated
 
     def new
       @user_account = UserAccount.new
+      @roles = Role.all
+      @workplaces = current_account.workplaces
 
       render 'new', formats: [:turbo_stream]
     end
@@ -22,6 +24,8 @@ module Authenticated
 
     def edit
       @user_account = current_account.user_accounts.find(params[:id])
+      @roles = Role.all
+      @workplaces = current_account.workplaces
 
       render 'edit', formats: [:turbo_stream]
     end
@@ -35,15 +39,16 @@ module Authenticated
     private
 
     def user_account_update_params
-      params.require(:user_account).permit(:role_id)
+      params.require(:user_account).permit(:role_id, :workplace_id)
     end
 
     def user_account_create_params
       password = Devise.friendly_token.first(10)
 
       params.require(:user_account)
-        .permit(:role_id, :account_id, user_attributes: [:email, :first_name, :last_name])
+        .permit(:role_id, :workplace_id, user_attributes: [:email, :first_name, :last_name])
         .tap do |user_params|
+          user_params[:account_id] = current_account.id
           user_params[:user_attributes][:password] = password
           user_params[:user_attributes][:password_confirmation] = password
         end
