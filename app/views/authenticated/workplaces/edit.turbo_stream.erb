@@ -1,0 +1,5 @@
+<%= turbo_stream.replace :panel do %>
+  <%= render layout: 'shared/panel', locals: { title: 'Edit Workplace' } do %>
+    <% render partial: 'authenticated/workplaces/form' %>
+  <% end %>
+<% end %>

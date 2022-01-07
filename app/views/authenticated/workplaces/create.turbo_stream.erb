@@ -7,5 +7,5 @@
 <% end %>
 
 <%= turbo_stream.append :notification do %>
-  <%= render partial: 'shared/notification', locals: { heading: 'Workplace Created', description: 'You can now add members to this workplace' } %>
+  <%= render partial: 'shared/notification', locals: { heading: @notification_heading, description: @notification_description } %>
 <% end %>
