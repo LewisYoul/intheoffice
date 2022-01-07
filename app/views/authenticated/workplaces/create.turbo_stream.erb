@@ -1,0 +1,11 @@
+<%= turbo_stream.replace :panel do %>
+  <div id="panel"></div>
+<% end %>
+
+<%= turbo_stream.replace :workplaces do %>
+  <%= turbo_frame_tag :workplaces, src: workplaces_path %>
+<% end %>
+
+<%= turbo_stream.append :notification do %>
+  <%= render partial: 'shared/notification', locals: { heading: 'Workplace Created', description: 'You can now add members to this workplace' } %>
+<% end %>
