@@ -3,7 +3,7 @@ module Authenticated
     before_action :set_form_variables, only: %i[new edit]
 
     def index
-      @user_accounts = current_account.user_accounts.includes(:user, :role)
+      @user_accounts = current_account.user_accounts.includes(:user, :role, :workplace)
     end
 
     def new
