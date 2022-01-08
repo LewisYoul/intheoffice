@@ -26,7 +26,10 @@ Rails.application.routes.draw do
     resources :user_accounts, only: %i[index new create edit update] do
       resources :user_account_locations, only: %i[new create edit update destroy]
     end
-    resources :workplaces, only: %i[index new create edit update destroy]
+    resources :workplaces, only: %i[index new create edit update destroy] do
+      get :calendar, on: :member
+      post :search, on: :member
+    end
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

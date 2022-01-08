@@ -1,0 +1,36 @@
+<div class="flex justify-between text-gray-500">
+  <div class="flex items-center">
+    <div id="week_selectors" class="flex mr-4">
+      <%= link_to calendar_workplace_path(@workplace, start_date: @previous_week_start, search: params[:search]), class: "px-2" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      <% end %>
+      <%= link_to calendar_workplace_path(@workplace, start_date: @next_week_start, search: params[:search]), class: "px-2" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      <% end %>
+    </div>
+
+    <h1><%= @header %></h1>
+  </div>
+
+  <div>
+    <%= form_with url: search_workplace_path(start_date: @start_date), data: { controller: 'debounce', action: 'turbo:submit-end->debounce#submitEnd' }, class: "flex" do |f| %>
+      <div class="relative">
+        <%= f.text_field :search, value: params[:search], data: { action: 'input->debounce#handleInput' }, class: "appearance-none block w-72 px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+
+        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+      </div>
+
+      <%= f.submit 'Search', data: { debounce_target: 'button' }, class: "hidden" %>
+    <% end %>
+  </div>
+</div>
+
+<%= render partial: 'authenticated/user_accounts/table' %>
