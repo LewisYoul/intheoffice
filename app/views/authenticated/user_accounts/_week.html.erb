@@ -1,19 +1,25 @@
 <%= turbo_frame_tag :week do %>
-  <div class="flex items-center text-gray-500">
-    <div id="week_selectors" class="flex mr-4">
-      <%= link_to week_user_account_path(current_user_account, start_date: @previous_week_start, search: params[:search]), class: "px-2" do %>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-        </svg>
-      <% end %>
-      <%= link_to week_user_account_path(current_user_account, start_date: @next_week_start, search: params[:search]), class: "px-2" do %>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-        </svg>
-      <% end %>
+  <div class="flex items-center justify-between text-gray-500">
+    <div class="flex items-center">
+      <div id="week_selectors" class="flex mr-4">
+        <%= link_to week_user_account_path(current_user_account, start_date: @previous_week_start, search: params[:search]), class: "px-2" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        <% end %>
+        <%= link_to week_user_account_path(current_user_account, start_date: @next_week_start, search: params[:search]), class: "px-2" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        <% end %>
+      </div>
+
+      <h1><%= @header %></h1>
     </div>
 
-    <h1><%= @header %></h1>
+    <div>
+      <%= link_to current_user_account.workplace.name, calendar_workplace_path(current_user_account.workplace, start_date: @start_date), data: { turbo_frame: '_top' }, class: 'text-sm font-medium text-indigo-600 hover:text-indigo-500 hover:underline' %>
+    </div>
   </div>
 
   <div class="flex flex-col">
