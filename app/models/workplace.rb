@@ -7,6 +7,10 @@ class Workplace < ApplicationRecord
 
   before_destroy :check_for_user_accounts, :check_if_only_workplace, prepend: true
 
+  def destroyable?
+    account.workplaces.size > 1 && user_accounts.none?
+  end
+
   private
 
   def check_for_user_accounts

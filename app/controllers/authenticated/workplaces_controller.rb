@@ -30,10 +30,6 @@ module Authenticated
     #don't allow access unless admin
     def edit
       @workplace = current_account.workplaces.find(params[:id])
-      is_last_workplace = current_account.workplaces.size == 1
-      has_user_accounts = @workplace.user_accounts.any?
-
-      @can_delete = !is_last_workplace && !has_user_accounts
       
       render 'edit', formats: [:turbo_stream]
     end
