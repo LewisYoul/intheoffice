@@ -5,6 +5,21 @@ class Workplace < ApplicationRecord
   validates_presence_of :name
   validates_uniqueness_of :name, scope: :account_id
 
-  #add validation to prevent deletion if there are still user_accounts that belong to the workspace
-  #will probs need reseed
+  before_destroy :check_for_user_accounts, :check_if_only_workplace, prepend: true
+
+  private
+
+  def check_for_user_accounts
+    return unless user_accounts.any?
+
+    errors.add(:user_accounts, message: 'cannot delete a workplace that members still belong to')
+    throw :abort
+  end
+
+  def check_if_only_workplace
+    return unless account.workplaces.size == 1
+
+    errors.add(:account, message: 'accounts must have at least one workplace')
+    throw :abort
+  end
 end
