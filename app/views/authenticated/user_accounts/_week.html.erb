@@ -1,0 +1,50 @@
+<%= turbo_frame_tag :week do %>
+  <div class="flex items-center text-gray-500">
+    <div id="week_selectors" class="flex mr-4">
+      <%= link_to week_user_account_path(current_user_account, start_date: @previous_week_start, search: params[:search]), class: "px-2" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      <% end %>
+      <%= link_to week_user_account_path(current_user_account, start_date: @next_week_start, search: params[:search]), class: "px-2" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      <% end %>
+    </div>
+
+    <h1><%= @header %></h1>
+  </div>
+
+  <div class="flex flex-col">
+    <div class="sm:-mx-6 lg:-mx-8">
+      <div class="py-4 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="shadow border-b border-gray-200 sm:rounded-lg">
+          <table class="min-w-full divide-y divide-gray-200 text-center">
+            <thead class="bg-gray-50">
+              <tr>
+                <% @week.each do |day| %>
+                  <th scope="col" class="text-center px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <% is_today = Date.today == day %>
+
+                    <div class="<%= is_today ? 'text-blue-500' : '' %>"><%= day.strftime('%A') %></div>
+                    <div class="mx-3 text-lg rounded-full <%= is_today ? 'bg-blue-500 text-white' : '' %>"><%= day.strftime('%d') %></div>
+                  </th>
+                <% end %>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-white">
+                <% @week.each do |day| %>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    <%= render partial: 'authenticated/user_accounts/location_selector', locals: { day: day } %>
+                  </td>
+                <% end %>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

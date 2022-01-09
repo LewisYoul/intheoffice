@@ -42,6 +42,19 @@ module Authenticated
       end
     end
 
+    def week
+      @user_account = current_account.user_accounts.find(params[:id])
+      @start_date = (Date.parse(params[:start_date] || Date.today.to_s)).beginning_of_week
+      @end_date = @start_date.end_of_week
+      @week = @start_date..@end_date
+      @next_week_start = @start_date + 1.week
+      @previous_week_start = @start_date - 1.week
+      @home, @office, @onlocation = Location.where(name: %w[office home onlocation]).order(name: :asc)
+      @header = [@start_date, @end_date].map { |day| day.strftime("%B %Y") }.uniq.join(' - ')
+
+      render partial: 'week'
+    end
+
     private
 
     def set_form_variables
