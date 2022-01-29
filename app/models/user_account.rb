@@ -5,6 +5,8 @@ class UserAccount < ApplicationRecord
   belongs_to :workplace, optional: false
   has_many :user_account_locations
 
+  enum status: { active: 'active', inactive: 'inactive' }
+
   accepts_nested_attributes_for :role
   accepts_nested_attributes_for :account
   accepts_nested_attributes_for :user

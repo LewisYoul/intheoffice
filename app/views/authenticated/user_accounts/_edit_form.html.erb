@@ -16,6 +16,13 @@
         <%= f.select :workplace_id, options_from_collection_for_select(@workplaces, :id, :name, @user_account.workplace_id), {}, class: "mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" %>
       </div>
     </div>
+
+    <div class="mt-3">
+      <%= f.label :status, 'Status', class: "block text-sm font-medium text-gray-700" %>
+      <div class="mt-1">
+        <%= f.select :status, UserAccount.statuses.values, {}, class: "mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" %>
+      </div>
+    </div>
   
     <%= f.fields_for :user, @user_account.user do |user_fields| %>
       <div class="mt-3">

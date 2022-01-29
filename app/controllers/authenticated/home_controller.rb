@@ -8,7 +8,7 @@ module Authenticated
       @previous_week_start = @start_date - 1.week
       @home, @office, @onlocation = Location.where(name: %w[office home onlocation]).order(name: :asc)
       @header = [@start_date, @end_date].map { |day| day.strftime("%B %Y") }.uniq.join(' - ')
-      @workplaces = current_account.workplaces.includes(:user_accounts)
+      @workplaces = current_account.workplaces.includes(:active_user_accounts)
     end
   end
 end

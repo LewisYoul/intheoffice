@@ -30,7 +30,7 @@
                     <%= workplace.name %>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    <%= workplace.user_accounts.size %>
+                    <%= workplace.active_user_accounts.size %>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <%= link_to 'Edit', edit_workplace_path(workplace), class: "text-indigo-600 hover:text-indigo-900" %>

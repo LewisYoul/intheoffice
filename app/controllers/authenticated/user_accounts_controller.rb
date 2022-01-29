@@ -63,7 +63,7 @@ module Authenticated
     end
 
     def user_account_update_params
-      params.require(:user_account).permit(:role_id, :workplace_id)
+      params.require(:user_account).permit(:role_id, :workplace_id, :status)
     end
 
     def user_account_create_params

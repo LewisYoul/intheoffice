@@ -68,7 +68,7 @@ module Authenticated
       @week = date_range
       @next_week_start = start_date + 1.week
       @previous_week_start = start_date - 1.week
-      @user_accounts = @workplace.user_accounts.joins(:user).includes(:user, user_account_locations: :location)
+      @user_accounts = @workplace.active_user_accounts.joins(:user).includes(:user, user_account_locations: :location)
 
       if params[:search]
         @user_accounts = @user_accounts.where("users.full_name ILIKE ?", "%#{params[:search]}%")
