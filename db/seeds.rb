@@ -6,6 +6,26 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+plans = [
+  {
+    level: :free,
+    monthly_cost: 0,
+    yearly_cost: 0
+  },
+  {
+    level: :basic,
+    monthly_cost: 500,
+    yearly_cost: 5000
+  },
+  {
+    level: :pro,
+    monthly_cost: 1000,
+    yearly_cost: 10000
+  }
+]
+
+plans.each { |plan| Plan.create!(plan) }
+
 Role.names.keys.each { |name| Role.create!(name: name) }
 Location.names.keys.each { |name| Location.create!(name: name) }
 
@@ -28,3 +48,10 @@ user_attrs = {
 }
 
 User.create!(user_attrs)
+
+Subscription.create!(
+  plan: Plan.find_by_level(:basic),
+  account: account,
+  start_date: Date.today,
+  end_date: Date.today + 1.month
+)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_29_160649) do
+ActiveRecord::Schema.define(version: 2022_02_02_174138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2022_01_29_160649) do
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "auto_renew", default: true, null: false
   end
 
   create_table "locations", force: :cascade do |t|
@@ -28,10 +29,29 @@ ActiveRecord::Schema.define(version: 2022_01_29_160649) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "plans", force: :cascade do |t|
+    t.string "level", null: false
+    t.integer "monthly_cost", null: false
+    t.integer "yearly_cost", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.bigint "plan_id"
+    t.bigint "account_id"
+    t.date "start_date", null: false
+    t.date "end_date", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_subscriptions_on_account_id"
+    t.index ["plan_id"], name: "index_subscriptions_on_plan_id"
   end
 
   create_table "user_account_locations", force: :cascade do |t|
