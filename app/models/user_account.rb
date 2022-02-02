@@ -11,4 +11,8 @@ class UserAccount < ApplicationRecord
   accepts_nested_attributes_for :account
   accepts_nested_attributes_for :user
   accepts_nested_attributes_for :workplace
+
+  def admin?
+    role.name == 'Admin'
+  end
 end

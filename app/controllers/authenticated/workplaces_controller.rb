@@ -1,19 +1,18 @@
 module Authenticated
   class WorkplacesController < AuthenticatedController
+    before_action :authorize_admin, except: %i[calendar search]
     before_action :start_date, :end_date, only: :calendar
 
     def index
       @workplaces = current_account.workplaces.includes(:user_accounts)
     end
 
-    #don't allow access unless admin
     def new
       @workplace = Workplace.new
 
       render 'new', formats: [:turbo_stream]
     end
 
-    #don't allow access unless admin
     def create
       @workplace = current_account.workplaces.new(workplace_params)
 
@@ -27,14 +26,12 @@ module Authenticated
       end
     end
 
-    #don't allow access unless admin
     def edit
       @workplace = current_account.workplaces.find(params[:id])
       
       render 'edit', formats: [:turbo_stream]
     end
     
-    #don't allow access unless admin
     def update
       @workplace = current_account.workplaces.find(params[:id])
 
