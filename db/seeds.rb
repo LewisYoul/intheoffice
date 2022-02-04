@@ -9,18 +9,21 @@
 plans = [
   {
     level: :free,
-    monthly_cost: 0,
-    yearly_cost: 0
+    monthly_cost_dollars: 0,
+    yearly_cost_dollars: 0,
+    stripe_price_id: 'price_1KPUPhGlxSCwqUdEOcBvWtqs'
   },
   {
     level: :basic,
-    monthly_cost: 500,
-    yearly_cost: 5000
+    monthly_cost_dollars: 20,
+    yearly_cost_dollars: 200,
+    stripe_price_id: 'price_1KPUJkGlxSCwqUdE74hFl0nX'
   },
   {
     level: :pro,
-    monthly_cost: 1000,
-    yearly_cost: 10000
+    monthly_cost_dollars: 40,
+    yearly_cost_dollars: 400,
+    stripe_price_id: 'price_1KPUKNGlxSCwqUdElZjJbgVZ'
   }
 ]
 
@@ -29,7 +32,16 @@ plans.each { |plan| Plan.create!(plan) }
 Role.names.keys.each { |name| Role.create!(name: name) }
 Location.names.keys.each { |name| Location.create!(name: name) }
 
-account = Account.create!(name: 'Test Account 1')
+account = Account.create!(
+  name: 'Test Account 1',
+  subscriptions_attributes: [{
+    plan: Plan.find_by_level(:free),
+    start_datetime: Time.zone.now,
+    end_datetime: 'infinity',
+    auto_renew: true,
+    active: true
+  }]
+)
 workplace = Workplace.create!(name: 'Workplace 1', account: account)
 
 user_attrs = {
@@ -48,10 +60,3 @@ user_attrs = {
 }
 
 User.create!(user_attrs)
-
-Subscription.create!(
-  plan: Plan.find_by_level(:basic),
-  account: account,
-  start_date: Date.today,
-  end_date: Date.today + 1.month
-)

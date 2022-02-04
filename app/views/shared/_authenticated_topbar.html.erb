@@ -4,9 +4,7 @@
 
 
       <div class="hidden sm:ml-6 sm:flex sm:items-center">
-        <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800">
-          <%= current_account.plan.level.capitalize %>
-        </span>
+        <%= link_to 'Upgrade', plans_path, class: "inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800" %>
         <%= render 'shared/user_menu' %>
       </div>
 

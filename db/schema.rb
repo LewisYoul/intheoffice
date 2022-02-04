@@ -31,8 +31,9 @@ ActiveRecord::Schema.define(version: 2022_02_02_174138) do
 
   create_table "plans", force: :cascade do |t|
     t.string "level", null: false
-    t.integer "monthly_cost", null: false
-    t.integer "yearly_cost", null: false
+    t.integer "monthly_cost_dollars", null: false
+    t.integer "yearly_cost_dollars", null: false
+    t.string "stripe_price_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -46,8 +47,11 @@ ActiveRecord::Schema.define(version: 2022_02_02_174138) do
   create_table "subscriptions", force: :cascade do |t|
     t.bigint "plan_id"
     t.bigint "account_id"
-    t.date "start_date", null: false
-    t.date "end_date", null: false
+    t.boolean "auto_renew", null: false
+    t.datetime "start_datetime", precision: 6, null: false
+    t.datetime "end_datetime", precision: 6, null: false
+    t.boolean "active", null: false
+    t.string "stripe_subscription_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["account_id"], name: "index_subscriptions_on_account_id"

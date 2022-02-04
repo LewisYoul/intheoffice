@@ -36,6 +36,11 @@ Rails.application.routes.draw do
       get :calendar, on: :member
       post :search, on: :member
     end
+
+    resources :plans, only: :index do
+      get :upgrade, on: :member
+      get :success, on: :collection
+    end
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

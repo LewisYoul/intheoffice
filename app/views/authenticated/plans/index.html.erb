@@ -1,0 +1,3 @@
+<% @plans.each do |plan| %>
+  <%= link_to(plan.level, upgrade_plan_path(plan)) %>
+<% end %>
