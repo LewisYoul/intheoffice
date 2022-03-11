@@ -3,15 +3,18 @@ module Authenticated
     before_action :authorize_admin
 
     def index
-      @plans = Plan.order(monthly_cost_dollars: :asc)
+      @basic, @pro = Plan.where(level: %w[basic pro]).order(monthly_cost_dollars: :asc)
     end
 
     def upgrade
+      # redirect if the current plan is same or < requested plan
+      redirect_to(authenticated_root_path) if current_account.plan.pro?
+
       @plan = Plan.find(params[:id])
 
       session = Stripe::Checkout::Session.create(
-        success_url: 'https://9c90-2a00-23c7-63a9-1c00-7947-414c-5a4c-98c6.ngrok.io/plans/success?session_id={CHECKOUT_SESSION_ID}',
-        cancel_url: 'https://9c90-2a00-23c7-63a9-1c00-7947-414c-5a4c-98c6.ngrok.io',
+        success_url: 'https://1c5b-2a00-23c7-63a9-1c00-4580-2087-6e4a-9c0d.ngrok.io/plans/success?session_id={CHECKOUT_SESSION_ID}',
+        cancel_url: 'https://1c5b-2a00-23c7-63a9-1c00-4580-2087-6e4a-9c0d.ngrok.io/plans',
         mode: 'subscription',
         metadata: { plan_id: @plan.id },
         line_items: [{ quantity: 1, price: @plan.stripe_price_id }]

@@ -1,7 +1,7 @@
 class Account < ApplicationRecord
   has_many :subscriptions
   has_one :active_subscription, -> { where(active: true) }, class_name: 'Subscription'
-  has_one :plan, through: :subscription
+  has_one :plan, through: :active_subscription
   has_many :user_accounts
   has_many :users, through: :user_accounts
   has_many :roles, through: :user_accounts

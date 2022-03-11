@@ -17,6 +17,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
     user_account = resource.user_accounts.build(user_account_params.merge(workplace: workplace))
     account = user_account.build_account(account_params)
     workplace.account = account
+    now = Time.now
+    account.subscriptions.build(
+      plan_id: Plan.find_by(level: :free).id,
+      auto_renew: false,
+      start_datetime: now,
+      end_datetime: now + 1.month,
+      active: true,
+    )
 
     if resource.save
       UserMailer.with(user: resource).welcome_email.deliver_later
