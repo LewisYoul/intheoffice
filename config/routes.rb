@@ -42,7 +42,7 @@ Rails.application.routes.draw do
       get :success, on: :collection
     end
 
-    resources :subscriptions do
+    resources :subscriptions, only: :update do
       put :cancel, on: :member
     end
   end

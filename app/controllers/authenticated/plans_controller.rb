@@ -3,11 +3,10 @@ module Authenticated
     before_action :authorize_admin
 
     def index
-      @basic, @pro = Plan.where(level: %w[basic pro]).order(monthly_cost_dollars: :asc)
+      @plans = Plan.order(monthly_cost_dollars: :asc)
     end
 
     def upgrade
-      # redirect if the current plan is same or < requested plan
       redirect_to(authenticated_root_path) if current_account.plan.pro?
 
       @plan = Plan.find(params[:id])
@@ -40,7 +39,7 @@ module Authenticated
         current_account.subscriptions.create!(
           plan_id: plan_id,
           auto_renew: true,
-          start_datetime: Time.zone.now,
+          start_datetime: now,
           end_datetime: now + 1.month,
           active: true,
           stripe_subscription_id: session.subscription
