@@ -4,23 +4,10 @@ module Authenticated
     def update
       subscription = current_account.active_subscription
       new_plan = Plan.find(params[:plan_id])
-      stripe_sub = Stripe::Subscription.retrieve(subscription.stripe_subscription_id)
-      
-      Subscription.transaction do
-        Stripe::Subscription.update(
-          stripe_sub.id,
-          items: [
-            {
-              id: stripe_sub.items.data[0].id,
-              price: new_plan.stripe_price_id
-            }
-          ]
-        )
 
-        subscription.update!(plan: new_plan)
+      StripeServices::SubscriptionUpdater.new(subscription, new_plan).update!
 
-        redirect_to(plans_path)
-      end
+      redirect_to(plans_path)
     end
 
     def cancel
