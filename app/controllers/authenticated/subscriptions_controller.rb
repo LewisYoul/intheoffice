@@ -30,8 +30,8 @@ module Authenticated
 
       # only update our subscription if the request to stripe is successful
       Subscription.transaction do
-        Stripe::Subscription.delete(@subscription.stripe_subscription_id)
         @subscription.update!(auto_renew: false)
+        Stripe::Subscription.delete(@subscription.stripe_subscription_id)
       end
 
 
