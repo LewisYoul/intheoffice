@@ -16,6 +16,7 @@ class CreatePlansAndSubscriptions < ActiveRecord::Migration[7.0]
       t.datetime :start_datetime, null: false
       t.datetime :end_datetime, null: false
       t.boolean :active, null: false
+      t.string :uid
       t.string :stripe_subscription_id
 
       t.timestamps

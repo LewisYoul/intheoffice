@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2022_02_02_174138) do
     t.datetime "start_datetime", precision: 6, null: false
     t.datetime "end_datetime", precision: 6, null: false
     t.boolean "active", null: false
+    t.string "uid"
     t.string "stripe_subscription_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

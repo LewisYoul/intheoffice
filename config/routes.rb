@@ -15,6 +15,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :webhooks do
+    post :stripe, on: :collection
+  end
+
   scope module: :authenticated do
     resources :home do
       post :search, on: :collection
