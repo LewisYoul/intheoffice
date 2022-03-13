@@ -46,9 +46,7 @@ Rails.application.routes.draw do
       get :success, on: :collection
     end
 
-    resources :subscriptions, only: :update do
-      put :cancel, on: :member
-    end
+    resources :subscriptions, only: :update
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
