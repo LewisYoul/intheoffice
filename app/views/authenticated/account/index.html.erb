@@ -34,10 +34,10 @@
             </td>
             <td class="relative py-3.5 pl-3 pr-4 sm:pr-6 text-right text-sm font-medium">
               <% if current_account.plan != plan %>
-                <% if current_account.plan.free? && !@active_subscription.stripe_subscription_id %>
+                <% if current_account.plan.free? && !@subscription.stripe_subscription_id %>
                   <%= link_to('Select', upgrade_plan_path(plan), class: "cursor-pointer inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-30") %>
                 <% else %>
-                  <%= button_to('Select', subscription_path(@active_subscription), method: :put, params: { plan_id: plan.id }, class: "cursor-pointer inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-30") %>
+                  <%= button_to('Select', subscription_path(@subscription), method: :put, params: { plan_id: plan.id }, class: "cursor-pointer inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-30") %>
                 <% end %>
               <% end %>
             </td>

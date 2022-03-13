@@ -6,19 +6,16 @@ module StripeServices
 
     def cancel!
       Subscription.transaction do
-        subscription =  Subscription.find_by(active: true, stripe_subscription_id: @stripe_subscription.id)
-        account = subscription.account
+        subscription =  Subscription.find_by(stripe_subscription_id: @stripe_subscription.id)
 
         start_datetime = Time.at(@stripe_subscription.current_period_end)
 
-        subscription.update!(active: false, end_datetime: start_datetime)
-
-        account.subscriptions.create!(
+        subscription.update!(
           plan: Plan.find_by(level: :free),
-          auto_renew: false,
+          auto_renew: true,
           start_datetime: start_datetime,
           end_datetime: start_datetime + 1.month,
-          active: true,
+          active: true
         )
       end
     end

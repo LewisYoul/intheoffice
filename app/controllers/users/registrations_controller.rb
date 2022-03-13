@@ -18,9 +18,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
     account = user_account.build_account(account_params)
     workplace.account = account
     now = Time.now
-    account.subscriptions.build(
+    account.build_subscription(
       plan_id: Plan.find_by(level: :free).id,
-      auto_renew: false,
+      auto_renew: true,
       start_datetime: now,
       end_datetime: now + 1.month,
       active: true,

@@ -1,7 +1,7 @@
 module Authenticated
   class AccountController < AuthenticatedController
     def index
-      @active_subscription = current_account.active_subscription
+      @subscription = current_account.subscription
       @plans = Plan.order(monthly_cost_dollars: :asc)
       @summary_text = summary_text
     end
@@ -14,10 +14,10 @@ module Authenticated
 
       return text if current_account.plan.free?
 
-      if current_account.active_subscription.auto_renew?
-        text << " Your subscription will renew on #{current_account.active_subscription.end_datetime.strftime('%d %m %y')}."
+      if current_account.subscription.auto_renew?
+        text << " Your subscription will renew on #{current_account.subscription.end_datetime.strftime('%d %m %y')}."
       else
-        text << " Your subscription has been set to cancel on #{current_account.active_subscription.end_datetime.strftime('%d %m %y')}. At which point you will be reverted to our free plan."
+        text << " Your subscription has been set to cancel on #{current_account.subscription.end_datetime.strftime('%d %m %y')}. At which point you will be reverted to our free plan."
       end
 
       text

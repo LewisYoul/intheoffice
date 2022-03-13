@@ -2,7 +2,7 @@ module Authenticated
   class SubscriptionsController < AuthenticatedController
     # TODO: only allow admin for current account
     def update
-      subscription = current_account.active_subscription
+      subscription = current_account.subscription
       new_plan = Plan.find(params[:plan_id])
 
       StripeServices::SubscriptionUpdater.new(subscription, new_plan).update!
@@ -11,7 +11,7 @@ module Authenticated
     end
 
     def cancel
-      @subscription = current_account.active_subscription
+      @subscription = current_account.subscription
 
       raise if @subscription.id.to_s != params[:id]
 

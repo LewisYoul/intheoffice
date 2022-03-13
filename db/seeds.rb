@@ -34,13 +34,13 @@ Location.names.keys.each { |name| Location.create!(name: name) }
 
 account = Account.create!(
   name: 'Test Account 1',
-  subscriptions_attributes: [{
+  subscription_attributes: {
     plan: Plan.find_by_level(:free),
     start_datetime: Time.zone.now,
     end_datetime: 'infinity',
     auto_renew: true,
     active: true
-  }]
+  }
 )
 workplace = Workplace.create!(name: 'Workplace 1', account: account)
 

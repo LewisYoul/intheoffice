@@ -8,11 +8,8 @@ module StripeServices
       return if session_already_actioned?
 
       Subscription.transaction do
-        previous_subscription.update!(
-          active: false,
-          end_datetime: end_datetime
-        )
-        account.subscriptions.create!(
+        subscription.update!(
+          end_datetime: end_datetime,
           plan_id: plan_id,
           auto_renew: true,
           start_datetime: start_datetime,
@@ -29,11 +26,11 @@ module StripeServices
       # The session can be completed from PlansController#success
       # or WebhooksController#stripe, whichever is triggered first.
       # Don't do anything if it's already been actioned.
-      previous_subscription.stripe_subscription_id == stripe_subscription_id
+      subscription.stripe_subscription_id == stripe_subscription_id
     end
 
-    def previous_subscription
-      @previous_subscription ||= account.active_subscription
+    def subscription
+      @subscription ||= account.subscription
     end
 
     def stripe_subscription_id
