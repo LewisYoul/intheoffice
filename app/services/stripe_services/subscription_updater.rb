@@ -44,6 +44,7 @@ module StripeServices
         
         Stripe::Subscription.update(
           stripe_subscription.id,
+          cancel_at_period_end: false,
           items: [
             {
               id: stripe_subscription.items.data[0].id,

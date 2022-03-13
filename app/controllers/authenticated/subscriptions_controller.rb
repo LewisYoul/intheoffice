@@ -7,7 +7,7 @@ module Authenticated
 
       StripeServices::SubscriptionUpdater.new(subscription, new_plan).update!
 
-      redirect_to(plans_path)
+      redirect_to(account_index_path)
     end
 
     def cancel

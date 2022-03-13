@@ -10,6 +10,10 @@ class WebhooksController < ApplicationController
       puts "\n\n\n SESSION COMPLETE \n\n\n"
 
       StripeServices::CheckoutSessionCompleter.new(event.data.object).complete
+    when "customer.subscription.deleted"
+      puts "\n\n\n SUBSCRIPTION CANCELLED \n\n\n"
+
+      StripeServices::SubscriptionCanceller.new(event.data.object).cancel!
     else
       puts "Unhandled event type #{event.type}"
     end
