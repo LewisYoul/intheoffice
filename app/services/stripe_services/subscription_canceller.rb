@@ -14,7 +14,7 @@ module StripeServices
           plan: Plan.find_by(level: :free),
           auto_renew: true,
           start_datetime: start_datetime,
-          end_datetime: start_datetime + 1.month,
+          end_datetime: 'infinity',
           active: true
         )
       end

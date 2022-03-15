@@ -22,7 +22,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       plan_id: Plan.find_by(level: :free).id,
       auto_renew: true,
       start_datetime: now,
-      end_datetime: now + 1.month,
+      end_datetime: 'infinity',
       active: true,
     )
 
