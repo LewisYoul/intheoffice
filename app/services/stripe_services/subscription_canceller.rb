@@ -18,6 +18,9 @@ module StripeServices
           active: true
         )
       end
+
+
+      # send an email?
     end
   end
 end

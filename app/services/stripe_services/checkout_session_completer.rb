@@ -8,6 +8,8 @@ module StripeServices
       return if session_already_actioned?
 
       Subscription.transaction do
+        account.update!(stripe_customer_id: @session.customer)
+
         subscription.update!(
           end_datetime: end_datetime,
           plan_id: plan_id,

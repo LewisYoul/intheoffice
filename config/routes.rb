@@ -47,6 +47,8 @@ Rails.application.routes.draw do
     end
 
     resources :subscriptions, only: :update
+
+    resources :stripe_customer_portal, only: :create
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

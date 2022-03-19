@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2022_02_02_174138) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "auto_renew", default: true, null: false
+    t.string "stripe_customer_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -53,6 +54,7 @@ ActiveRecord::Schema.define(version: 2022_02_02_174138) do
     t.boolean "active", null: false
     t.string "uid"
     t.string "stripe_subscription_id"
+    t.boolean "past_due", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["account_id"], name: "index_subscriptions_on_account_id"

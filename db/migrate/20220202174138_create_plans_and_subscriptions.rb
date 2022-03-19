@@ -18,10 +18,12 @@ class CreatePlansAndSubscriptions < ActiveRecord::Migration[7.0]
       t.boolean :active, null: false
       t.string :uid
       t.string :stripe_subscription_id
+      t.boolean :past_due, null: false, default: false
 
       t.timestamps
     end
 
     add_column :accounts, :auto_renew, :boolean, default: true, null: false
+    add_column :accounts, :stripe_customer_id, :string
   end
 end
