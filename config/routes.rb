@@ -41,7 +41,7 @@ Rails.application.routes.draw do
       post :search, on: :member
     end
 
-    resources :plans do
+    resources :plans, only: :index do
       get :upgrade, on: :member
       get :success, on: :collection
     end

@@ -1,10 +1,37 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
-<div class="px-4 sm:px-6 lg:px-8">
-  <div class="sm:flex sm:items-center">
-    <div class="sm:flex-auto">
-      <h1 class="text-xl font-semibold text-gray-900">Account</h1>
-      <p class="mt-2 text-sm text-gray-700"><%= @summary_text %></p>
+<div class="px-4 sm:px-6 lg:px-8 w-1/2">
+  <% if current_user_account.role.Admin? %>
+    <div class="flex items-center justify-between mb-3 border-b-2 pb-3">
+      <h1 class="text-2xl font-semibold text-gray-900">Account</h1>
+
+      <div class="flex divide-x-8 divide-white">
+        <%= link_to 'Compare Plans', plans_path, class: "cursor-pointer py-1 px-2 border rounded-md shadow-sm text-xs font-medium border-gray-300" %>
+        <% if current_account.subscription.stripe_subscription_id %>
+          <%= button_to 'Manage Account', stripe_customer_portal_index_path, class: "cursor-pointer py-1 px-2 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+        <% else %>
+          <%= link_to 'Upgrade Acount', plans_path, class: "cursor-pointer py-1 px-2 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+        <% end %>
+      </div>
     </div>
-  </div>
-  <%= button_to 'Update Account', stripe_customer_portal_index_path %>
+
+    <div class="grid grid-cols-3 gap-4">
+      <div class="bg-gray-100 px-8 py-4 rounded-md">
+        <h1 class="text-center">Current plan</h1>
+        <p class="text-2xl font-extrabold text-center"><%= current_account.plan.level.capitalize %></p>
+      </div>
+      <div class="bg-gray-100 px-8 py-4 rounded-md">
+        <h1 class="text-center">Monthly bill</h1>
+        <p class="text-2xl font-extrabold text-center">$<%= current_account.plan.monthly_cost_dollars %></p>
+      </div>
+      <div class="rounded-md bg-gray-100 px-8 py-4">
+        <h1 class="text-center">Renews on</h1>
+        <%# should change free plans to auto_renew: false %>
+        <% if current_account.plan.paid? && current_account.subscription.auto_renew? %>
+          <p class="text-2xl font-extrabold text-center"><%= current_account.subscription.end_datetime.strftime('%D') %></p>
+        <% else %>
+          <p class="text-2xl font-extrabold text-center">---</p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 </div>

@@ -2,14 +2,18 @@ module Authenticated
   class PlansController < AuthenticatedController
     before_action :authorize_admin
 
+    def index
+      @plans = Plan.order(monthly_cost_dollars: :asc)
+    end
+
     def upgrade
       redirect_to(authenticated_root_path) if current_account.plan.pro?
 
       @plan = Plan.find(params[:id])
 
       session = Stripe::Checkout::Session.create(
-        success_url: 'https://8175-2a00-23c7-63a9-1c00-71c4-14d5-1bca-305e.ngrok.io/plans/success?session_id={CHECKOUT_SESSION_ID}',
-        cancel_url: 'https://8175-2a00-23c7-63a9-1c00-71c4-14d5-1bca-305e.ngrok.io/account',
+        success_url: 'https://d2da-2a00-23c7-63a9-1c00-838-62f2-cecf-f6fe.ngrok.io/plans/success?session_id={CHECKOUT_SESSION_ID}',
+        cancel_url: 'https://d2da-2a00-23c7-63a9-1c00-838-62f2-cecf-f6fe.ngrok.io/account',
         mode: 'subscription',
         metadata: { account_id: current_account.id, plan_id: @plan.id },
         line_items: [{ quantity: 1, price: @plan.stripe_price_id }]

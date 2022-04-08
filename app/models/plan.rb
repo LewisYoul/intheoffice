@@ -9,4 +9,8 @@ class Plan < ApplicationRecord
 
     order.index(level) > order.index(comparison_plan.level)
   end
+
+  def paid?
+    !free?
+  end
 end
